@@ -1,0 +1,13 @@
+{
+  "name": "Lumina Chat",
+  "description": "A premium, real-time private messaging platform with doodles, stickers, and modern Instagram-inspired design.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "real-time-messaging",
+    "doodle-sharing",
+    "presence-indicators"
+  ]
+}

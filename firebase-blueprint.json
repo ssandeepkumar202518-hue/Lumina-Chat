@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "username": { "type": "string" },
+        "bio": { "type": "string" },
+        "isOnline": { "type": "boolean" },
+        "lastSeen": { "type": "number" }
+      },
+      "required": ["uid", "email", "username"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "A conversation between two users",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "updatedAt": { "type": "number" },
+        "lastMessage": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "senderId": { "type": "string" },
+            "timestamp": { "type": "number" }
+          }
+        }
+      }
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "text": { "type": "string" },
+        "mediaUrl": { "type": "string" },
+        "messageType": { "type": "string", "enum": ["text", "image", "doodle", "sticker", "gif"] },
+        "timestamp": { "type": "number" },
+        "seen": { "type": "boolean" },
+        "replyTo": { "type": "string" },
+        "reactions": { "type": "object" }
+      },
+      "required": ["chatId", "senderId", "receiverId", "text", "messageType", "timestamp"]
+    },
+    "Presence": {
+      "title": "Presence",
+      "description": "User online status and typing state",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "isOnline": { "type": "boolean" },
+        "lastSeen": { "type": "number" },
+        "typingAt": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/chats/{chatId}": { "schema": "Chat", "description": "Conversations" },
+    "/chats/{chatId}/messages/{messageId}": { "schema": "Message", "description": "Messages within a chat" },
+    "/presence/{userId}": { "schema": "Presence", "description": "User online status" }
+  }
+}
